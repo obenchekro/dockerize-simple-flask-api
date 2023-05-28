@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+
+  registry:
+    container_name: registry_example
+    image: registry
+    ports:
+      - 5000:5000
+    volumes:
+      - /path/data:/var/lib/registry
+
+  registry-front:
+    image: joxit/docker-registry-ui:1.5-static
+    ports:
+      - 8080:80
+    environment:
+      - REGISTRY_TITLE=Registry
+      - REGISTRY_URL=http://registry_example:5000/
+    depends_on:
+      - registry

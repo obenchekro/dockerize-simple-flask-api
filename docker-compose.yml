@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+
+  website:
+    container_name: website
+    image: php:7.2-apache
+    ports:
+      - "80:80"
+    volumes:
+      - ./website:/var/www/html
+    environment:
+      - USERNAME=toto
+      - PASSWORD=python
+    depends_on:
+      - simple_api
+
+  simple_api:
+    container_name: simple_api
+    build:
+      context: ./simple_api
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
